@@ -33,9 +33,19 @@
                 <div>
                 </div>
                 <div>
-                    <a href="{{ route('home') }}" class="btn btn-primary btn-sm">
-                        <i class="mdi mdi-view-dashboard me-1"></i> Espace Admin
-                    </a>
+                    @auth
+    @if(auth()->user()->isClient())
+        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger btn-sm">Déconnexion</button>
+        </form>
+    @else
+        <a href="{{ route('home') }}" class="btn btn-primary btn-sm">Espace Admin</a>
+    @endif
+@else
+    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Se connecter</a>
+@endauth
+
                 </div>
             </div>
         </nav>

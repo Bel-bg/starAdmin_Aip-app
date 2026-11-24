@@ -30,7 +30,12 @@
               </a>
               <div @class(['collapse', 'show' => request()->routeIs('produits.*', 'categories.*')]) id="menu-produits">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"><a @class(['nav-link', 'active' => request()->routeIs('categories.*')]) href="{{ route('categories.index') }}">Catégories</a></li>
+                  @if(auth()->user()->isAdmin())
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('categories.index') }}">Catégories</a>
+    </li>
+@endif
+
                   <li class="nav-item"><a @class(['nav-link', 'active' => request()->routeIs('produits.create')]) href="{{ route('produits.create') }}">Nouveau Produit</a></li>
                   <li class="nav-item"><a @class(['nav-link', 'active' => request()->routeIs('produits.index')]) href="{{ route('produits.index') }}">Listes des Produits</a></li>
                 </ul>
@@ -49,6 +54,7 @@
                 </ul>
               </div>
             </li>
+                  @if(auth()->user()->isAdmin())
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#menu-comptes" aria-expanded="false" aria-controls="menu-comptes">
                 <i class="menu-icon mdi mdi-account-circle-outline"></i>
@@ -57,6 +63,12 @@
               </a>
               <div class="collapse" id="menu-comptes">
                 <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a @class(['nav-link', 'active' => request()->routeIs('produits.corbeille')]) href="{{ route('produits.corbeille') }}">Corbeille</a></li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('users.index') }}">
+                              <span class="menu-title">Utilisateurs</span>
+                          </a>
+                      </li>
                   @if (Route::has('logout'))
                     <li class="nav-item">
                       <form method="POST" action="{{ route('logout') }}">
@@ -65,11 +77,13 @@
                       </form>
                     </li>
                   @endif
-                  <li class="nav-item"> <a class="nav-link" href="#"> Ajouter un Admin </a></li>
-                  <li class="nav-item"><a @class(['nav-link', 'active' => request()->routeIs('produits.corbeille')]) href="{{ route('produits.corbeille') }}">Corbeille</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> Autres </a></li>
+
                 </ul>
               </div>
             </li>
+                  @endif
           </ul>
         </nav>
+
+
+        

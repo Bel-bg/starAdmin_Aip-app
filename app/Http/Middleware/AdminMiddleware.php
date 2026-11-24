@@ -15,6 +15,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $role='gerant';
+        if ($role=='admin'){
         return $next($request);
+        } else
+        {
+            dd('Accès refusé');
+        }
     }
 }

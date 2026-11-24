@@ -81,8 +81,7 @@ class CommandeSeeder extends Seeder
 
             DB::table('commandes')->insert($commandes);
 
-            // Avec MySQL/MariaDB, l'ID retourné après un insert multiple
-            // correspond au premier ID auto-généré du lot.
+            
             $premierIdCommande = (int) DB::getPdo()->lastInsertId();
 
             if ($premierIdCommande <= 0) {
